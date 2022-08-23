@@ -24,7 +24,6 @@ app.get("/notes", (req, res) =>
 );
 
 app.get("/api/notes", (req, res) => {
-    console.log(noteData);
   res.json(noteData);
 });
 
@@ -34,7 +33,7 @@ app.post("/api/notes", (req,res) => {
     const newNote = {
         title,
         text, 
-        note_id: uuid(),
+        id: uuid(),
     };
 
     fs.readFile(path.join(__dirname, "/db/db.json"), (err,data) => {
@@ -42,12 +41,8 @@ app.post("/api/notes", (req,res) => {
             console.log(err);
         }
         else {
-            // const parsedNotes = JSON.parse(data);
-            console.log(noteData);
             noteData.push(newNote);
-            console.log(noteData);
-            
-            fs.writeFile(path.join(__dirname, "/db/db.json"), JSON.stringify(parsedNotes, null,4),(err) => 
+            fs.writeFile(path.join(__dirname, "/db/db.json"), JSON.stringify(noteData, null,4),(err) => 
             err 
             ? console.error(err)
             : console.log(`Note ${newNote.title} has been saved`)
@@ -61,7 +56,7 @@ app.post("/api/notes", (req,res) => {
     };
 
     console.log(response);
-    res.json(reponse);
+    res.json(response);
 }
 else {
     res.json("Error in saving note");

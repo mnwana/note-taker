@@ -101,7 +101,7 @@ const handleNoteView = (e) => {
   renderActiveNote();
 };
 
-// Sets the activeNote to and empty object and allows the user to enter a new note
+// Sets the activeNote to an empty object and allows the user to enter a new note
 const handleNewNoteView = (e) => {
   activeNote = {};
   renderActiveNote();
@@ -125,9 +125,10 @@ const renderNoteList = async (notes) => {
   let noteListItems = [];
 
   // Returns HTML element with or without a delete button
-  const createLi = (text, delBtn = true) => {
+  const createLi = (text, delBtn = false) => {
     const liEl = document.createElement("li");
     liEl.classList.add("list-group-item");
+    
 
     const spanEl = document.createElement("span");
     spanEl.classList.add("list-item-title");
