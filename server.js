@@ -2,9 +2,10 @@ const express = require("express");
 const path = require("path");
 const fs = require("fs");
 const exp = require("constants");
-const uuid = require("./helpers/uuid");
+const uuid = require("uuid");
+const noteData = require('./db/db.json');
 
-const PORT = 3001;
+const PORT = 3000;
 
 const app = express();
 
@@ -13,19 +14,17 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static("public"));
 
-// app.get("/", (req, res) => res.sendFile(path.join(__dirname, "/public/index.html")));
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '/public/index.html'));
+  });
+  
 
 app.get("/notes", (req, res) =>
   res.sendFile(path.join(__dirname, "/public/notes.html"))
 );
 
-app.get("/*", (req, res) =>
-  res.sendFile(path.join(__dirname, "/public/index.html"))
-);
-
 app.get("/api/notes", (req, res) => {
-  res.sendFile(path.join(__dirname, "/db/db.json"));
-  console.info(res.json(path.join(__dirname, "/db/db.json")));
+  res.json(noteData);
 });
 
 app.post("/api/notes", (req,res) => {
@@ -61,11 +60,11 @@ app.post("/api/notes", (req,res) => {
 
     console.log(response);
     res.json(reponse);
-};
+}
 else {
     res.json("Error in saving note");
 }
-})
+});
 
 app.listen(PORT, () =>
   console.log(`App listening http://localhost:${PORT} 🚀`)
