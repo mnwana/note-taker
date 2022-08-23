@@ -2,7 +2,7 @@ const express = require("express");
 const path = require("path");
 const fs = require("fs");
 const exp = require("constants");
-const uuid = require("uuid");
+const uuid = require("./public/utils/uuid");
 const noteData = require('./db/db.json');
 
 const PORT = 3000;
@@ -24,6 +24,7 @@ app.get("/notes", (req, res) =>
 );
 
 app.get("/api/notes", (req, res) => {
+    console.log(noteData);
   res.json(noteData);
 });
 
@@ -41,11 +42,12 @@ app.post("/api/notes", (req,res) => {
             console.log(err);
         }
         else {
-            const parsedNotes = JSON.parse(data);
-            console.log(parsedNotes);
-            parsedNotes.push(newNote);
-            console.log(parsedNotes);
-            fs.writeFile(path.join(__dirname, "/db/db.json"), JSON.stringify(parsedNotes, nuoll,4),(err) => 
+            // const parsedNotes = JSON.parse(data);
+            console.log(noteData);
+            noteData.push(newNote);
+            console.log(noteData);
+            
+            fs.writeFile(path.join(__dirname, "/db/db.json"), JSON.stringify(parsedNotes, null,4),(err) => 
             err 
             ? console.error(err)
             : console.log(`Note ${newNote.title} has been saved`)
