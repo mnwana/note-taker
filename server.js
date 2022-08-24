@@ -5,7 +5,7 @@ const exp = require("constants");
 const uuid = require("./public/utils/uuid");
 const noteData = require('./db/db.json');
 
-const PORT = 3000;
+const port = process.env.PORT || 3001;
 
 const app = express();
 
@@ -63,8 +63,8 @@ else {
 });
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '/public/index.html'));
-});
+    res.sendFile(path.join(__dirname, '/public/index.html'));
+  });
 
 app.listen(PORT, () =>
   console.log(`App listening http://localhost:${PORT} 🚀`)
