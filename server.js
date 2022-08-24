@@ -5,7 +5,7 @@ const exp = require("constants");
 const uuid = require("./public/utils/uuid");
 const noteData = require('./db/db.json');
 
-const port = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3001;
 
 const app = express();
 
